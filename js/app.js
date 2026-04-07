@@ -42,6 +42,7 @@ async function loadPurchases() {
         .order('purchase_date', { ascending: false })
     if (error) { console.error('Error loading purchases:', error); return }
     document.getElementById('purchaseTableBody').innerHTML = renderPurchaseTable(data)
+    initPurchaseEvents() // ← add this line
 }
 
 function initEvents() {
@@ -139,5 +140,18 @@ function initTableEvents() {
         })
     })
 }
-
+async function initPurchaseEvents() {
+    document.querySelectorAll('.btn-toggle-paid').forEach(btn => {
+        btn.addEventListener('click', async () => {
+            const id = parseInt(btn.dataset.id)
+            const currentPaid = btn.dataset.paid === 'true'
+            await supabase
+                .from('purchases')
+                .update({ is_paid: !currentPaid })
+                .eq('id', id)
+            await loadPurchases()
+            initPurchaseEvents()
+        })
+    })
+}
 init()

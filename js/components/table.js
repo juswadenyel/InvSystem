@@ -29,7 +29,7 @@ export function renderProductTable(products) {
 
 export function renderPurchaseTable(purchases) {
     if (purchases.length === 0) {
-        return `<tr><td colspan="7" class="empty-row">No purchases yet</td></tr>`
+        return `<tr><td colspan="8" class="empty-row">No purchases yet</td></tr>`
     }
 
     return purchases.map(p => `
@@ -41,6 +41,7 @@ export function renderPurchaseTable(purchases) {
             <td>${p.quantity}</td>
             <td>₱${Number(p.total_price).toFixed(2)}</td>
             <td><span class="paid-badge ${p.is_paid ? 'paid' : 'unpaid'}">${p.is_paid ? 'Paid' : 'Unpaid'}</span></td>
+            <td><button class="btn-toggle-paid" data-id="${p.id}" data-paid="${p.is_paid}">${p.is_paid ? 'Mark Unpaid' : 'Mark Paid'}</button></td>
         </tr>`
     ).join('')
 }
