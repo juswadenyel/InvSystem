@@ -5,7 +5,7 @@ export function renderNavbar(username) {
     <nav class="navbar">
         <div class="navbar-brand">
             <span class="brand-icon">📦</span>
-            <span class="brand-name">InvSystem</span>
+            <span class="brand-name">Bodega ni Noreen</span>
         </div>
         <div class="navbar-menu">
             <button class="nav-btn active" data-tab="inventory">Inventory</button>
