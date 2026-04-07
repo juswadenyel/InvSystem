@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InvSystem — Dashboard</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <div id="navbar"></div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+        <!-- Summary Cards -->
+        <div class="cards-row">
+            <div class="card">
+                <div class="card-icon">🗂️</div>
+                <div class="card-info">
+                    <span class="card-label">Total Products</span>
+                    <span class="card-value" id="totalProducts">—</span>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-icon">📦</div>
+                <div class="card-info">
+                    <span class="card-label">Total Stock</span>
+                    <span class="card-value" id="totalStock">—</span>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-icon">🏷️</div>
+                <div class="card-info">
+                    <span class="card-label">Categories</span>
+                    <span class="card-value">5</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Inventory Tab -->
+        <div class="tab-content active" id="inventory">
+            <div class="section-header">
+                <h2>Products</h2>
+                <button class="btn-primary" id="addProductBtn">+ Add Product</button>
+            </div>
+
+            <div class="filters-row">
+                <input type="text" id="searchInput" placeholder="🔍 Search product..." class="search-input">
+                <select id="categoryFilter" class="filter-select">
+                    <option value="">All Categories</option>
+                    <option value="Dry Goods">Dry Goods</option>
+                    <option value="Can goods">Can goods</option>
+                    <option value="Clothes">Clothes</option>
+                    <option value="Junk Foods">Junk Foods</option>
+                    <option value="School Supplies">School Supplies</option>
+                </select>
+            </div>
+
+            <div class="table-wrapper">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Category</th>
+                            <th>Price</th>
+                            <th>Discounted Price</th>
+                            <th>Stock</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="productTableBody">
+                        <tr><td colspan="7" class="empty-row">Loading...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Purchase History Tab -->
+        <div class="tab-content" id="purchases">
+            <div class="section-header">
+                <h2>Purchase History</h2>
+            </div>
+            <div class="table-wrapper">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Product</th>
+                            <th>Customer</th>
+                            <th>Contact</th>
+                            <th>Qty</th>
+                            <th>Total</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="purchaseTableBody">
+                        <tr><td colspan="7" class="empty-row">Loading...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Add/Edit Product Modal -->
+    <div class="modal-overlay" id="productModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 id="modalTitle">Add Product</h3>
+                <button class="modal-close">✕</button>
+            </div>
+            <form id="productForm" class="modal-form">
+                <div class="form-group">
+                    <label>Product Name</label>
+                    <input type="text" id="prodName" required placeholder="e.g. Colgate 150g">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Category</label>
+                        <select id="prodCategory">
+                            <option value="">Uncategorized</option>
+                            <option value="Dry Goods">Dry Goods</option>
+                            <option value="Can goods">Can goods</option>
+                            <option value="Clothes">Clothes</option>
+                            <option value="Junk Foods">Junk Foods</option>
+                            <option value="School Supplies">School Supplies</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Price (₱)</label>
+                        <input type="number" id="prodPrice" step="0.01" required placeholder="0.00">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Stock</label>
+                        <input type="number" id="prodStock" required placeholder="0">
+                    </div>
+                    <div class="form-group">
+                        <label>Discount (%)</label>
+                        <input type="number" id="prodDiscount" placeholder="0" min="0" max="100">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-secondary modal-close">Cancel</button>
+                    <button type="submit" class="btn-primary">Save Product</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Sell Modal -->
+    <div class="modal-overlay" id="sellModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Sell Product</h3>
+                <button class="modal-close">✕</button>
+            </div>
+            <form id="sellForm" class="modal-form">
+                <input type="hidden" id="sellProductId">
+                <div class="form-group">
+                    <label>Product</label>
+                    <p id="sellProductName" class="product-name-display"></p>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Customer Name</label>
+                        <input type="text" id="sellCustomer" required placeholder="Juan Dela Cruz">
+                    </div>
+                    <div class="form-group">
+                        <label>Contact (optional)</label>
+                        <input type="text" id="sellContact" placeholder="09xx-xxx-xxxx">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Quantity</label>
+                        <input type="number" id="sellQty" required min="1" placeholder="1">
+                    </div>
+                    <div class="form-group">
+                        <label>Unit Price (₱)</label>
+                        <input type="number" id="sellPrice" step="0.01" required placeholder="0.00">
+                    </div>
+                </div>
+                <div class="form-group checkbox-group">
+                    <input type="checkbox" id="sellPaid">
+                    <label for="sellPaid">Mark as Paid</label>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-secondary modal-close">Cancel</button>
+                    <button type="submit" class="btn-primary">Confirm Sale</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script type="module">
+        import('./js/app.js').catch(e => console.error('APP ERROR:', e))
+    </script>
+</body>
+</html>

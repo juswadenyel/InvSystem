@@ -1,0 +1,107 @@
+.login-body {
+    background: linear-gradient(135deg, #6366f1 0%, #4f46e5 50%, #3730a3 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 900px;
+    max-width: 95vw;
+    background: white;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 25px 80px rgba(0,0,0,0.3);
+    min-height: 520px;
+}
+
+.login-left {
+    background: linear-gradient(145deg, #6366f1, #3730a3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 48px;
+}
+
+.login-brand {
+    text-align: center;
+    color: white;
+}
+
+.brand-icon-big {
+    font-size: 64px;
+    display: block;
+    margin-bottom: 16px;
+}
+
+.login-brand h1 {
+    font-size: 36px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    margin-bottom: 8px;
+}
+
+.login-brand p {
+    font-size: 15px;
+    opacity: 0.8;
+}
+
+.login-right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 48px;
+}
+
+.login-box {
+    width: 100%;
+    max-width: 340px;
+}
+
+.login-box h2 {
+    font-size: 26px;
+    font-weight: 800;
+    margin-bottom: 6px;
+    color: var(--text);
+}
+
+.login-sub {
+    color: var(--text-muted);
+    font-size: 14px;
+    margin-bottom: 28px;
+}
+
+.login-box .form-group {
+    margin-bottom: 16px;
+}
+
+.btn-login {
+    width: 100%;
+    padding: 13px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: var(--radius);
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+    margin-top: 8px;
+}
+
+.btn-login:hover { background: var(--primary-dark); transform: translateY(-1px); }
+.btn-login:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
+
+.error-msg {
+    background: #fef2f2;
+    color: var(--danger);
+    border: 1px solid #fecaca;
+    padding: 10px 14px;
+    border-radius: var(--radius);
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 16px;
+}
